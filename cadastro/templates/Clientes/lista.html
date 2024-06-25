@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Clientes</h2>
+    <table>
+        <thead>
+        <tr>
+            <td>Nome</td>
+            <td>Ações</td>
+        </tr>
+        </thead>
+        <tbody>
+            {% for c in marcas %}
+            <tr>
+                <td>{{ c.nome }}</td>
+                <td>{{ c.telefone }}</td>
+                <td>{{ c.email }}</td>
+                <td>Alterar Excluir</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
