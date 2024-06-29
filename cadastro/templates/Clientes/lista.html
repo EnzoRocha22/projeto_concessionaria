@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2>Clientes</h2>
+
+    <a href="{% url 'incluir_cliente' %}" class="btn btn-primary">Incluir novo Cliente</a>
+    
     <table>
         <thead>
         <tr>
@@ -9,13 +12,15 @@
         </tr>
         </thead>
         <tbody>
-            {% for c in marcas %}
+            {% for c in clientes %}
             <tr>
                 <td>{{ c.nome }}</td>
                 <td>{{ c.telefone }}</td>
                 <td>{{ c.email }}</td>
-                <td>Alterar Excluir</td>
-                
+                <td><a href="{% url 'alterar_cliente' c.id %}" class="btn btn-primary">Alterar</a></td>
+                <td><a href="#" class="btn btn-danger"
+                    onclick="abrirtela('{% url 'excluir_cliente' c.id %}')">Excluir</a></td>
+               
             </tr>
             {% endfor %}
         </tbody>

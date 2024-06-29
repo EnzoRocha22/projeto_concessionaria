@@ -1,4 +1,4 @@
-from cadastro.forms import MarcaForm
+from cadastro.forms import MarcaForm, ClienteForm
 from cadastro.models import Marca, Cliente
 from django.shortcuts import render, redirect 
 
@@ -43,3 +43,31 @@ def excluirMarca(request, id):
 def listarClientes(request):
     cliente = Cliente.objects.order_by('nome')
     return render(request, 'clientes/lista.html', {'clientes': cliente} )
+
+def incluirCliente(request):
+    if request.method == "POST":
+        form = ClienteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_clientes')
+    form = ClienteForm 
+    return render(request, 'clientes/form_cliente.html',
+    {'form': form})
+
+def alterarCliente(request, id):
+    cliente = Cliente.objects.get(id=id)
+    if request.method == "POST":
+        form = ClienteForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            return redirect("listar_clientes")
+    form = ClienteForm(instance=cliente)
+    return render(request, "clientes/form_cliente.html", {"form": form})
+
+def excluirCliente(request, id):
+    cliente = Cliente.objects.get(id=id)
+    try:
+        cliente.delete()
+    except:
+        pass
+    return redirect("listar_clientes")
